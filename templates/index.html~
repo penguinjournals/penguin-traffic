@@ -1,0 +1,13 @@
+<html>
+<head></head>
+<body>
+<h1>Incidencias de tráfico:</h1>
+<ul>
+{% for incidencia in incidencias %}
+  <li>
+    {{ incidencia.carretera }} - {{ incidencia.fecha }} - {{ incidencia.km }} - {{ incidencia.sentido }}
+  </li>
+{% endfor %}
+</ul>
+</body>
+</html>
