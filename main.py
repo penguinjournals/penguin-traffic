@@ -32,7 +32,6 @@ class Incidence:
 	  return {'carretera':carretera, 'fecha':fecha, 'km':km, 'sentido':sentido, 'nivel':nivel}
 
 fecha = time.strftime("%c")
-print fecha
 
 #tree = ET.parse('sample.xml')
 tree = ET.parse(urllib2.urlopen('http://www.trafikoa.net/servicios/IncidenciasTDT/IncidenciasTrafikoTDTGeo'))
