@@ -1,2 +1,4 @@
 Jinja2==2.7.2
+boto==2.20.1
 boto3==1.1.4
+botocore==1.2.5
