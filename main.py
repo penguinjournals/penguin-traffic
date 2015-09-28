@@ -4,34 +4,29 @@
 import xml.etree.ElementTree as ET
 import urllib2
 import ConfigParser
-import time
+from datetime import datetime
 from jinja2 import Template,FileSystemLoader,Environment
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 
 class Incidence:
-	carretera = ''
-	fecha = ''
-	km = ''
-	sentido = ''
-	nivel = ''
-	def __init__(self,carretera,fecha,km,sentido,nivel):
-		self.carretera = carretera
-		self.fecha = fecha
-		self.km = km
-		self.sentido = sentido
-		self.nivel = nivel
+    carretera = ''
+    fecha = ''
+    km = ''
+    sentido = ''
+    nivel = ''
+    def __init__(self,carretera,fecha,km,sentido,nivel):
+        self.carretera = carretera
+        self.fecha = fecha
+        self.km = km
+        self.sentido = sentido
+        self.nivel = nivel
 
-	def is_printable(self):
-		if (self.nivel != 'T: Abierto C: Abierto A: Abierto' and self.nivel != None):
-			return True
-		else:
-			return False
+    def is_printable(self):
+        return self.nivel != 'T: Abierto C: Abierto A: Abierto' and self.nivel != None
 
-	def print_as_dictionary(self):
-	  return {'carretera':carretera, 'fecha':fecha, 'km':km, 'sentido':sentido, 'nivel':nivel}
-
-fecha = time.strftime("%c")
+    def print_as_dictionary(self):
+      return {'carretera':carretera, 'fecha':fecha, 'km':km, 'sentido':sentido, 'nivel':nivel}
 
 #tree = ET.parse('sample.xml')
 tree = ET.parse(urllib2.urlopen('http://www.trafikoa.net/servicios/IncidenciasTDT/IncidenciasTrafikoTDTGeo'))
@@ -44,7 +39,11 @@ for child in root.findall('incidenciaGeolocalizada'):
   sentido = child.find('sentido').text
   nivel = child.find('nivel').text
   incidencia = Incidence(carretera, fecha, km, sentido, nivel)
-  incidences.append(incidencia.print_as_dictionary())
+  if incidencia.is_printable():
+    incidences.append(incidencia.print_as_dictionary())
+
+fecha = datetime.now()
+#fecha = fecha.strftime('%m/%d/%Y')
 
 templateLoader = FileSystemLoader( searchpath="templates" )
 templateEnv = Environment( loader=templateLoader )
