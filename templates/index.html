@@ -1,17 +1,29 @@
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
 </head>
 <body>
 <h1>Incidencias de tráfico:</h1>
-<br>
 {{ fecha }}
-<ul>
+<table class="pure-table">
+    <thead>
+        <tr>
+            <th>Carretera</th>
+            <th>Fecha</th>
+            <th>Km. - Sentido</th>
+        </tr>
+    </thead>
+    <tbody>
 {% for incidencia in incidencias %}
-  <li>
-    {{ incidencia.carretera }} - {{ incidencia.fecha }} - {{ incidencia.km }} - {{ incidencia.sentido }}
-  </li>
+        <tr class="{{ loop.cycle('pure-table-odd', '') }}">
+            <td>{{ incidencia.carretera }}</td>
+            <td>{{ incidencia.fecha }}</td>
+            <td>{{ incidencia.km }} - {{ incidencia.sentido }}</td>
+        </tr>
 {% endfor %}
-</ul>
+    </tbody>
+</table>
 </body>
 </html>
