@@ -4,7 +4,7 @@
 import xml.etree.ElementTree as ET
 import urllib2
 import ConfigParser
-from datetime import datetime
+from datetime import datetime, timedelta
 from jinja2 import Template,FileSystemLoader,Environment
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
@@ -42,7 +42,7 @@ for child in root.findall('incidenciaGeolocalizada'):
   if incidencia.is_printable():
     incidences.append(incidencia.print_as_dictionary())
 
-fecha = datetime.now()
+fecha = datetime.now()+ timedelta(hours=2)
 #fecha = fecha.strftime('%m/%d/%Y')
 
 templateLoader = FileSystemLoader( searchpath="templates" )
