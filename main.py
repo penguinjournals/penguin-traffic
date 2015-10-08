@@ -15,18 +15,19 @@ class Incidence:
     km = ''
     sentido = ''
     nivel = ''
-    def __init__(self,carretera,fecha,km,sentido,nivel):
+    def __init__(self,carretera,fecha,km,sentido,nivel,poblacion):
         self.carretera = carretera
         self.fecha = fecha
         self.km = km
         self.sentido = sentido
         self.nivel = nivel
+        self.poblacion = poblacion
 
     def is_printable(self):
         return self.nivel != 'T: Abierto C: Abierto A: Abierto' and self.nivel != None
 
     def print_as_dictionary(self):
-      return {'carretera':carretera, 'fecha':fecha, 'km':km, 'sentido':sentido, 'nivel':nivel}
+      return {'carretera':carretera, 'fecha':fecha, 'km':km, 'sentido':sentido, 'nivel':nivel, 'poblacion':poblacion}
 
 #tree = ET.parse('sample.xml')
 tree = ET.parse(urllib2.urlopen('http://www.trafikoa.net/servicios/IncidenciasTDT/IncidenciasTrafikoTDTGeo'))
@@ -38,7 +39,8 @@ for child in root.findall('incidenciaGeolocalizada'):
   km = child.find('pk_inicial').text
   sentido = child.find('sentido').text
   nivel = child.find('nivel').text
-  incidencia = Incidence(carretera, fecha, km, sentido, nivel)
+  poblacion = child.find('poblacion').text
+  incidencia = Incidence(carretera, fecha, km, sentido, nivel, poblacion)
   if incidencia.is_printable():
     incidences.append(incidencia.print_as_dictionary())
 

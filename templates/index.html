@@ -12,7 +12,7 @@
         <tr>
             <th>Carretera</th>
             <th>Fecha</th>
-            <th>Km. - Sentido</th>
+            <th>Km. - Sentido (Población)</th>
         </tr>
     </thead>
     <tbody>
@@ -20,7 +20,7 @@
         <tr class="{{ loop.cycle('pure-table-odd', '') }}">
             <td>{{ incidencia.carretera }}</td>
             <td>{{ incidencia.fecha }}</td>
-            <td>{{ incidencia.km }} - {{ incidencia.sentido }}</td>
+            <td>{{ incidencia.km }} - {{ incidencia.sentido }} ({{ incidencia.poblacion }})</td>
         </tr>
 {% endfor %}
     </tbody>
