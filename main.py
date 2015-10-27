@@ -44,7 +44,7 @@ for child in root.findall('incidenciaGeolocalizada'):
   if incidencia.is_printable():
     incidences.append(incidencia.print_as_dictionary())
 
-fecha = datetime.now()+ timedelta(hours=2)
+fecha = datetime.now()+ timedelta(hours=1)
 #fecha = fecha.strftime('%m/%d/%Y')
 
 templateLoader = FileSystemLoader( searchpath="templates" )
